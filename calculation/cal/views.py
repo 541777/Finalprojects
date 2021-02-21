@@ -20,6 +20,8 @@ def add(request):
     policyuplift = (request.POST['percentage'])
 
 
+
+
     date_verification = time(policystart)
 
     policynumber_verficiation = polnumber(policynumber)
@@ -64,9 +66,11 @@ def add(request):
 
     else:
         print("else part")
-        m = "Give proper values"
+        m = "give proper values"
         return render(request, 'home.html',
-                      {'result': policynumber, 'result15': m})
+                      {'result': policynumber, 'result15': m,'result2': policystart, 'result3': policypermium,
+                       'result4': policymembership,
+                       'result5': policyuplift})
 
 
 
@@ -78,10 +82,11 @@ def time(date1):
     else:
         print("hiiifgfedgdfsdfse")
         inputDate = date1
-        day, month, year = inputDate.split('/')
-        isValidDate = True
         try:
-            datetime.datetime(int(year), int(month), int(day))
+          day, month, year = inputDate.split('/')
+          isValidDate = True
+
+          datetime.datetime(int(year), int(month), int(day))
         except ValueError:
             isValidDate = False
 
@@ -170,7 +175,6 @@ def caluplift(policyup):
        return upamt
     else:
         return ''
-
 
 
 
