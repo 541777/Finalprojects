@@ -19,6 +19,7 @@ def add(request):
     policymembership = request.POST['mship']
     policyuplift = (request.POST['percentage'])
 
+
     date_verification = time(policystart)
 
     policynumber_verficiation = polnumber(policynumber)
@@ -29,21 +30,24 @@ def add(request):
 
     uplift_verficitation = poluplift(policyuplift)
 
+
+
     print(date_verification)
     print(policynumber_verficiation)
     print(permium_verficiation)
     print(membership_verfication)
     print(uplift_verficitation)
+    print(len(policynumber))
 
 
-    if((date_verification==policynumber_verficiation==permium_verficiation==membership_verfication==uplift_verficitation)==True):
+    if((date_verification and policynumber_verficiation and permium_verficiation and membership_verfication and uplift_verficitation)==True):
         policy_managementfee = 0
         if (policynumber[0] == "A"):
-            policy_managementfee = (calmanagement(0.03, float(policypermium)))
+            policy_managementfee = (calmanagement(0.03, (policypermium)))
         elif (policynumber[0] == "B"):
-            policy_managementfee = (calmanagement(0.05, float(policypermium)))
+            policy_managementfee = (calmanagement(0.05, (policypermium)))
         elif (policynumber[0] == "C"):
-            policy_managementfee = (calmanagement(0.07, float(policypermium)))
+            policy_managementfee = (calmanagement(0.07, (policypermium)))
 
         polstartdate = policystart
         policy_discretionary = Discretionarybonus(polstartdate, policynumber, policymembership)
@@ -60,7 +64,7 @@ def add(request):
 
     else:
         print("else part")
-        m = "check the credentials"
+        m = "Give proper values"
         return render(request, 'home.html',
                       {'result': policynumber, 'result15': m})
 
@@ -92,12 +96,20 @@ def polnumber(policynumber1):
 
     policynumber = policynumber1
 
-    if (policynumber[0] == 'A' and re.search(regex, policynumber[1:7])):
-        return True
+    if (len(policynumber) != 0):
 
+        if (policynumber[0] == 'A' and re.search(regex, policynumber[1:7])):
+            return True
+        elif (policynumber[0] == 'B' and re.search(regex, policynumber[1:7])):
+            return True
+        elif (policynumber[0] == 'C' and re.search(regex, policynumber[1:7])):
+            return True
+        else:
+            print("inside")
+            return False
     else:
+        print("outside")
         return False
-
 
 def polpermium(policypermium):
     regex = '^[0-9]+$'
@@ -132,7 +144,7 @@ def poluplift(policyuplift1):
 
 
 def calmanagement(polmanagementfee, polpermium):
-    return polmanagementfee * polpermium
+    return polmanagementfee * float(polpermium)
 
 def Discretionarybonus(policystartdate, policynum, policymember):
         policydetails = policynum
@@ -158,5 +170,7 @@ def caluplift(policyup):
        return upamt
     else:
         return ''
+
+
 
 
