@@ -101,23 +101,7 @@ fieldset {
 <br><br>
            <button type="submit" formaction=" ">RESET</button></B>
           </fieldset>
-            <script type="text/javascript">
-              function validation()
-              {
-                var policynum = document.getElementById("policy").value;
-                var num = policynum.substring(1,policynum.length)
-
-                if((policynum.startsWith("A")  || policynum.startsWith("B") || policynum.startsWith("C")) && (/^[0-9]+$/.test(num)))
-                 {
-                  return true;
-                 }
-                 else
-                  {
-                   alert("invalid format");
-                   return false;
-                  }
-              }
-            </script>
+           
          </div>
       </form>
   </body>
